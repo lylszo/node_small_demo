@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .form_item {
+      margin-bottom: 20px;
+    }
+  </style>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <form name="my_form">
+    <div class="form_item">
+      <input type="text" id="title" placeholder="标题" />
+    </div>
+    <div class="form_item">
+      <input type="text" id="author" placeholder="作者" />
+    </div>
+    <div class="form_item">
+      <textarea id="content" cols="30" rows="10" placeholder="内容" ></textarea>
+    </div>
+    <div>
+      <input type="button" value="提交" onclick="sendData()"/>
+    </div>
+  </form>
+
+
+  <script>
+    let url = 'http://192.168.77.48'
+
+    $.get(url, function(data){
+      console.log(data)
+    });
+
+    function sendData () {
+      let params = {
+        title: $('#title').val(),
+        author: $('#title').val(),
+        content: $('#title').val(),
+      }
+      // $.post(url, params, function(data){
+      //   console.log(data)
+      // });
+
+      $.ajax({ 
+        type:"POST", 
+        url, 
+        contentType:"application/json",
+        data: JSON.stringify(params),
+        success: data => { 
+         console.log(data);
+        },
+        error: error => { 
+         throw(error)
+        }
+      })
+    }
+  </script>
+</body>
+</html>
